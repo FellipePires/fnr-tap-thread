@@ -19,6 +19,9 @@ public class Funcionario {
 	public void setCodigo(int codigo) {
 		this.codigo = codigo;
 	}
+	
+	public Funcionario() {
+	}
 
 	public Funcionario(String nome, int codigo) {
 		this.nome = nome;

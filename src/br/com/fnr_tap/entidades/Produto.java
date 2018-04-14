@@ -1,6 +1,11 @@
 package br.com.fnr_tap.entidades;
 
+import java.util.*;
+
 public class Produto {
+	Random gerador = new Random();
+	
+	
 	private int codigo;
 	private String descricao;
 	private double preco;
@@ -28,6 +33,12 @@ public class Produto {
 	public void setPreco(double preco) {
 		this.preco = preco;
 	}
+	
+	public double gerarPreco(double preco) {
+		preco = gerador.nextDouble() * 100;
+		preco = Math.round(preco * 100) / 100d;
+		return preco;
+	}
 
 	public Produto() {
 	}
@@ -37,5 +48,4 @@ public class Produto {
 		this.descricao = descricao;
 		this.preco = preco;
 	}
-
 }

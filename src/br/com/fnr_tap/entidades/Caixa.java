@@ -1,6 +1,6 @@
 package br.com.fnr_tap.entidades;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class Caixa {
 

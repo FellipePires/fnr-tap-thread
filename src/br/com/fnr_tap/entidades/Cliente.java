@@ -1,8 +1,10 @@
 package br.com.fnr_tap.entidades;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class Cliente {
+	Random gerador = new Random();
+
 	private int codigo;
 	private ArrayList<Produto> produtos;
 	private String nome;
@@ -40,6 +42,10 @@ public class Cliente {
 		this.isPreferencial = isPreferencial;
 	}
 
+	public int gerarProdutos() {
+		return gerador.nextInt(300);
+	}
+
 	public Cliente() {
 	}
 
@@ -49,5 +55,4 @@ public class Cliente {
 		this.nome = nome;
 		this.isPreferencial = isPreferencial;
 	}
-
 }
