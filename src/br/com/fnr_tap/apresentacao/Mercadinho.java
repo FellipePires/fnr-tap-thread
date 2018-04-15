@@ -1,42 +1,29 @@
 package br.com.fnr_tap.apresentacao;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-
 public class Mercadinho {
+	public static double dinheiroMercadinho = 500000.90; //Recurso compartilhado
 
-	private JFrame frame;
-
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Mercadinho window = new Mercadinho();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+		
+		
+//		Caixa caixaComum = new Caixa();
+//		Caixa caixaPreferencial = new Caixa();
+//		Caixa caixaPequenosItens = new Caixa();
+		
+		CaixaPreferencial cp = new CaixaPreferencial();
+					
 	}
 
-	/**
-	 * Create the application.
+	/*
+	 * Recurso compartilhado entre as Threads
 	 */
-	public Mercadinho() {
-		initialize();
+	public static synchronized double pegarDinheiro(double valor) {
+		if(dinheiroMercadinho - valor < 0) {
+			return -1;
+		}else {
+			dinheiroMercadinho -= valor;
+			return valor;
+		}
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
 }
