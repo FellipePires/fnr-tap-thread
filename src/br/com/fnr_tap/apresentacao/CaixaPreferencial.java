@@ -2,21 +2,26 @@ package br.com.fnr_tap.apresentacao;
 
 import javax.swing.JFrame;
 
-public class CaixaPreferencial implements Runnable{
-
-	private JFrame frame;
+public class CaixaPreferencial extends JFrame implements Runnable {
+	private static final long serialVersionUID = 1L;
 
 	public CaixaPreferencial() {
-		initialize();
+		exibirJanela();
 	}
 
-	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
-	
+	@Override
 	public void run() {
+		// TODO Auto-generated method stub
 		
 	}
+	
+	public void exibirJanela() {
+		this.setSize(400, 400);
+		this.setLocationRelativeTo(null);
+		this.setVisible(true);
+		this.setResizable(false);
+		this.setTitle("Caixa Preferencial");
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+
 }

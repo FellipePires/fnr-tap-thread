@@ -1,17 +1,15 @@
 package br.com.fnr_tap.apresentacao;
 
 public class Mercadinho {
-	public static double dinheiroMercadinho = 500000.90; //Recurso compartilhado
+	public static double dinheiroMercadinho = 5000000.90; //Recurso compartilhado
 
 	public static void main(String[] args) {
 		
-		
-//		Caixa caixaComum = new Caixa();
-//		Caixa caixaPreferencial = new Caixa();
-//		Caixa caixaPequenosItens = new Caixa();
-		
 		CaixaPreferencial cp = new CaixaPreferencial();
-					
+		CaixaComum cm = new CaixaComum();
+		CaixaPequenosItens cpi = new CaixaPequenosItens();
+		
+		
 	}
 
 	/*
