@@ -3,12 +3,10 @@ package br.com.fnr_tap.entidades;
 import java.util.ArrayList;
 import java.util.Random;
 
-import br.com.fnr_tap.apresentacao.Mercadinho;
-
 public class Caixa {
 	private int codigo;
 	private ArrayList<Cliente> clientes;
-	private double saldoCaixa = Mercadinho.pegarDinheiro(2000);
+	private double saldoCaixa;
 
 	public int getCodigo() {	return codigo;	}
 	public void setCodigo(int codigo) {	this.codigo = codigo;	}
@@ -28,22 +26,20 @@ public class Caixa {
 	public double gerarClientes() {
 		Random random = new Random();		
 
-		for(int i = 0; i < (random.nextInt(20) + 1); i++) {
+		for(int i = 0; i < (random.nextInt(5) + 1); i++) {
 			int codigo = random.nextInt(20);
 			String nome = "Cliente " + (i+1);
 			boolean isPreferencial = random.nextBoolean();
+			boolean isPequenosItens = random.nextBoolean();
 			
-			Cliente cliente = new Cliente(codigo, nome, isPreferencial);
+			Cliente cliente = new Cliente(codigo, nome, isPreferencial, isPequenosItens);
 			
-			if(this.saldoCaixa - cliente.getTotal() < 0) {
-				Mercadinho.pegarDinheiro(2000);
-			}else {
-				this.saldoCaixa -= cliente.getTotal(); 
-			}
+			this.saldoCaixa += cliente.getTotal(); 
 			
 			clientes.add(cliente);
 		}
 		
+		this.saldoCaixa = Math.round(this.saldoCaixa * 100) / 100d;
 		return this.saldoCaixa;
 	}
 

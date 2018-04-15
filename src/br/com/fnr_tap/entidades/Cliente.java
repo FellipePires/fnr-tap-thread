@@ -7,6 +7,7 @@ public class Cliente {
 	private ArrayList<Produto> produtos;
 	private String nome;
 	private boolean isPreferencial;
+	private boolean isPequenosItens;
 	private double total = 0;
 
 	public int getCodigo() {		return codigo;	}
@@ -17,23 +18,35 @@ public class Cliente {
 	public void setNome(String nome) {		this.nome = nome;	}
 	public boolean isPreferencial() {		return isPreferencial;	}
 	public void setPreferencial(boolean isPreferencial) {		this.isPreferencial = isPreferencial;	}
+	public boolean isPequenosItens() {		return isPequenosItens;	}
+	public void setPequenosItens(boolean isPequenosItens) {		this.isPequenosItens = isPequenosItens;	}
 	public double getTotal() { return total;	}
 	public void setTotal(int total) {	this.total = total; 	}
 
 	public Cliente() {	}
 
-	public Cliente(int codigo, String nome, boolean isPreferencial) {
+	public Cliente(int codigo, String nome, boolean isPreferencial, boolean isPequenosItens) {
 		this.codigo = codigo;
 		this.nome = nome;
 		this.isPreferencial = isPreferencial;
+		this.isPequenosItens = isPequenosItens;
 		this.produtos = new ArrayList<>();
 		this.total = gerarProdutos();
 	}
 
 	public double gerarProdutos() {
 		Random random = new Random();		
-
-		for(int i = 0; i < (random.nextInt(25) + 1); i++) {
+		int qntProdutos = 0;
+		
+		if(this.isPequenosItens) {
+			qntProdutos = random.nextInt(10);
+		}else if(this.isPreferencial) {
+			qntProdutos = random.nextInt(20);
+		}else {
+			qntProdutos = random.nextInt(25);
+		}
+		
+		for(int i = 0; i < qntProdutos + 1; i++) {
 			int codigo = random.nextInt(1000);
 			String descricao = "Produto " + (i+1);
 			double preco = random.nextDouble() * 100;
@@ -41,9 +54,10 @@ public class Cliente {
 			this.total += preco;
 			
 			Produto produto = new Produto(codigo, descricao, preco);
+			
 			this.produtos.add(produto);
 		}
-		
+		this.total = Math.round(this.total * 100) / 100d;
 		return this.total;
 	}
 	

@@ -1,13 +1,17 @@
 package br.com.fnr_tap.apresentacao;
 
-public class Mercadinho {
-	public static double dinheiroMercadinho = 5000000.90; //Recurso compartilhado
+import br.com.fnr_tap.entidades.Caixa;
 
+public class Mercadinho {
 	public static void main(String[] args) {
 		
+		Caixa c1 = new Caixa();
+		
+		
+		
 		CaixaPreferencial cp = new CaixaPreferencial();
-		CaixaComum cm = new CaixaComum();
-		CaixaPequenosItens cpi = new CaixaPequenosItens();
+//		CaixaComum cm = new CaixaComum();
+//		CaixaPequenosItens cpi = new CaixaPequenosItens();
 		
 		
 	}
@@ -15,13 +19,7 @@ public class Mercadinho {
 	/*
 	 * Recurso compartilhado entre as Threads
 	 */
-	public static synchronized double pegarDinheiro(double valor) {
-		if(dinheiroMercadinho - valor < 0) {
-			return -1;
-		}else {
-			dinheiroMercadinho -= valor;
-			return valor;
-		}
-	}
+//	public static synchronized void assineAqui() {
+//	}
 
 }
