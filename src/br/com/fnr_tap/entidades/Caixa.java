@@ -3,7 +3,7 @@ package br.com.fnr_tap.entidades;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Caixa implements Runnable {
+public class Caixa {
 	private int codigo;
 	private ArrayList<Cliente> clientes;
 	private double saldoCaixa;
@@ -54,10 +54,5 @@ public class Caixa implements Runnable {
 		this.saldoCaixa = Math.round(this.saldoCaixa * 100) / 100d;
 		return this.saldoCaixa;
 	}
-	
-	@Override
-	public void run() {
 		
-	}
-	
 }

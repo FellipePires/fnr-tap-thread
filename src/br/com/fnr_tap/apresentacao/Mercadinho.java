@@ -6,8 +6,11 @@ public class Mercadinho {
 		CaixaComum cm = new CaixaComum();
 		new Thread(cm).start();
 		
-		CaixaComum cm2 = new CaixaComum();
-		new Thread(cm2).start();
+		CaixaPreferencial cp = new CaixaPreferencial();
+		new Thread(cp).start();
+		
+		CaixaPequenosItens cpi = new CaixaPequenosItens();
+		new Thread(cpi).start();
 		
 	}
 }
