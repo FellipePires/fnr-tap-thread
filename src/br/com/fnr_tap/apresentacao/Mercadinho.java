@@ -63,6 +63,8 @@ public class Mercadinho extends JFrame implements Runnable {
 				Thread.sleep(3000);
 			}
 			progressBarCaixa01.setIndeterminate(false);
+			progressBarCaixa01.setString("SALDO CAIXA: R$"+String.valueOf(caixa.getSaldoCaixa()));
+			progressBarCaixa01.setStringPainted(true);
 //			JOptionPane.showMessageDialog(null, "SALDO RECEBIDO: R$" + c.getSaldoCaixa());
 		} catch (InterruptedException e) {
 			e.printStackTrace();
