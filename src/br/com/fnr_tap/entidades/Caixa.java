@@ -3,10 +3,13 @@ package br.com.fnr_tap.entidades;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Caixa {
+public class Caixa implements Runnable {
 	private int codigo;
 	private ArrayList<Cliente> clientes;
 	private double saldoCaixa;
+//	private boolean isCaixaComum;
+//	private boolean isCaixaPequenosItens;
+//	private boolean isCaixaPreferencial;
 
 	public int getCodigo() {	return codigo;	}
 	public void setCodigo(int codigo) {	this.codigo = codigo;	}
@@ -14,13 +17,22 @@ public class Caixa {
 	public void setClientes(ArrayList<Cliente> clientes) {		this.clientes = clientes;	}
 	public double getSaldoCaixa() {	return saldoCaixa;	}
 	public void setSaldoCaixa(double saldoCaixa) {	this.saldoCaixa = saldoCaixa;	}
+//	public boolean isCaixaComum() {	return isCaixaComum;}
+//	public void setCaixaComum(boolean isCaixaComum) {	this.isCaixaComum = isCaixaComum;	}
+//	public boolean isCaixaPequenosItens() {		return isCaixaPequenosItens;	}
+//	public void setCaixaPequenosItens(boolean isCaixaPequenosItens) {		this.isCaixaPequenosItens = isCaixaPequenosItens;	}
+//	public boolean isCaixaPreferencial() {		return isCaixaPreferencial;	}
+//	public void setCaixaPreferencial(boolean isCaixaPreferencial) {		this.isCaixaPreferencial = isCaixaPreferencial;	}
 	
-	public Caixa() {	}
+	public Caixa() {}
 
-	public Caixa(int codigo) {
+	public Caixa(int codigo) {//boolean isCaixaComum, boolean isCaixaPequenosItens, boolean isCaixaPreferencial
 		this.codigo = codigo;
 		this.clientes = new ArrayList<>();
 		this.saldoCaixa = gerarClientes();
+//		this.isCaixaComum = isCaixaComum;
+//		this.isCaixaPequenosItens = isCaixaPequenosItens;
+//		this.isCaixaPreferencial = isCaixaPreferencial;
 	}
 	
 	public double gerarClientes() {
@@ -42,5 +54,10 @@ public class Caixa {
 		this.saldoCaixa = Math.round(this.saldoCaixa * 100) / 100d;
 		return this.saldoCaixa;
 	}
-
+	
+	@Override
+	public void run() {
+		
+	}
+	
 }
