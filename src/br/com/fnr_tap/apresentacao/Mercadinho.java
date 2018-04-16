@@ -20,11 +20,12 @@ public class Mercadinho extends JFrame implements Runnable {
 	private static final long serialVersionUID = 1L;
 	private JTextField textFieldCodCaixa;
 	private JTextField textFieldNomeCliente;
-	private JTextField textField_2;
+	private JTextField textFieldTotalCliente;
 	private JProgressBar progressBarCaixa01;
 	private JProgressBar progressBarCxComum;
 	private JProgressBar progressBarCxPreferencial;
 	private JTextArea textAreaProdutos;
+	static int trabalho = 0;
 
 	public static void main(String[] args) {
 		Mercadinho m = new Mercadinho();
@@ -36,35 +37,34 @@ public class Mercadinho extends JFrame implements Runnable {
 		try {
 			int codigoCaixa = new Random().nextInt(2000);
 			Caixa caixa = new Caixa(codigoCaixa);
+			
+			trabalho = caixa.getClientes().size();
+			int progresso = 0;
+			
 			textFieldCodCaixa.setText(String.valueOf(caixa.getCodigo()));
 			
 			for (Cliente cAtual : caixa.getClientes()) {
 				textFieldNomeCliente.setText(cAtual.getNome());
-//				System.out.println("CAIXA " + c.getCodigo() + " \t" + cAtual.getCodigo() + "\t" + cAtual.getNome()
-//						+ "\t" + cAtual.getTotal() + "\n");
 
 				textAreaProdutos.setText("");
-				
 				for (Produto pAtual : cAtual.getProdutos()) {
 					String codigo = String.valueOf(pAtual.getCodigo());
 					String descricao = pAtual.getDescricao();
 					String preco = String.valueOf(pAtual.getPreco());
 					
 					textAreaProdutos.append(codigo +"\t"+ descricao +"\t"+ preco +"\n");
-					
-//					System.out.println(
-//							pAtual.getCodigo() + "\t" + pAtual.getDescricao() + "\t" + pAtual.getPreco() + "\n");
 				}
 				
-				textField_2.setText(String.valueOf(cAtual.getTotal()));
-//				JOptionPane.showMessageDialog(null, "Valor total cliente: R$" + cAtual.getTotal());
+				textFieldTotalCliente.setText(String.valueOf(cAtual.getTotal()));
 				
-				progressBarCaixa01.setIndeterminate(true);
+				progresso += 100/trabalho;
+				if(progresso == 99) {
+					progresso+=1;
+				}
+				progressBarCaixa01.setValue(progresso);
+				
 				Thread.sleep(3000);
 			}
-			progressBarCaixa01.setIndeterminate(false);
-			progressBarCaixa01.setString("SALDO CAIXA: R$"+String.valueOf(caixa.getSaldoCaixa()));
-			progressBarCaixa01.setStringPainted(true);
 //			JOptionPane.showMessageDialog(null, "SALDO RECEBIDO: R$" + c.getSaldoCaixa());
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -80,6 +80,7 @@ public class Mercadinho extends JFrame implements Runnable {
 		
 		progressBarCaixa01 = new JProgressBar();
 		progressBarCaixa01.setBounds(10, 442, 325, 51);
+		progressBarCaixa01.setStringPainted(true);
 		desktopPane.add(progressBarCaixa01);
 
 		JInternalFrame internalFrame = new JInternalFrame("Caixa 01");
@@ -124,11 +125,11 @@ public class Mercadinho extends JFrame implements Runnable {
 		lblTotal.setBounds(148, 324, 46, 14);
 		internalFrame.getContentPane().add(lblTotal);
 
-		textField_2 = new JTextField();
-		textField_2.setEditable(false);
-		textField_2.setBounds(213, 321, 86, 20);
-		internalFrame.getContentPane().add(textField_2);
-		textField_2.setColumns(10);
+		textFieldTotalCliente = new JTextField();
+		textFieldTotalCliente.setEditable(false);
+		textFieldTotalCliente.setBounds(213, 321, 86, 20);
+		internalFrame.getContentPane().add(textFieldTotalCliente);
+		textFieldTotalCliente.setColumns(10);
 
 		JInternalFrame internalFrame_1 = new JInternalFrame("Caixa 02");
 		internalFrame_1.setBounds(345, 11, 325, 400);
