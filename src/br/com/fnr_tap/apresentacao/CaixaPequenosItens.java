@@ -32,7 +32,8 @@ public class CaixaPequenosItens extends JFrame implements Runnable {
 
 			trabalho = caixa.getClientes().size();
 			int progresso = 0;
-
+			int i = 0;
+			
 			textFieldCodigoCaixa.setText(String.valueOf(caixa.getCodigo()));
 			textFieldCodigoFuncionario.setText("3");
 
@@ -50,14 +51,12 @@ public class CaixaPequenosItens extends JFrame implements Runnable {
 
 				textFieldTotalCliente.setText(String.valueOf(cAtual.getTotal()));
 
-				progresso += 100 / trabalho;
-				if (progresso == 99) {
-					progresso += 1;
-				}
-
-				progressBar.setValue(Math.round(progresso));
+				progresso += (100 / trabalho);
+				
+				progressBar.setValue(progresso);
 				Mercadinho.coletarDinheiroCaixa(cAtual.getTotal());
-				Thread.sleep(3000);
+				Thread.sleep(caixa.getClientes().get(i).getProdutos().size());//Alterar p/ qntd produtos
+				i++;
 			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();
@@ -126,5 +125,7 @@ public class CaixaPequenosItens extends JFrame implements Runnable {
 		setVisible(true);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+//		new Thread(cpi)
 	}
 }

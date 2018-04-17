@@ -31,7 +31,7 @@ public class CaixaComum extends JFrame implements Runnable {
 			Caixa caixa = new Caixa(codigoCaixa);
 
 			trabalho = caixa.getClientes().size();
-			float progresso = 0;
+			int progresso = 0;
 
 			textFieldCodigoCaixa.setText(String.valueOf(caixa.getCodigo()));
 			textFieldCodigoFuncionario.setText("2");
@@ -40,22 +40,26 @@ public class CaixaComum extends JFrame implements Runnable {
 				textFieldNomeCliente.setText(cAtual.getNome());
 
 				textAreaProdutos.setText("");
-				for (Produto pAtual : cAtual.getProdutos()) {
-					String codigo = String.valueOf(pAtual.getCodigo());
-					String descricao = pAtual.getDescricao();
-					String preco = String.valueOf(pAtual.getPreco());
+//				Produto pAtual = new Produto();
+				for (int i = cAtual.getProdutos().size(); i > 0 ; i--) {
+					
+					String codigo = String.valueOf(cAtual.getProdutos().get(i).getCodigo());
+					String descricao = cAtual.getProdutos().get(i).getDescricao();
+					String preco = String.valueOf(cAtual.getProdutos().get(i).getPreco());
 
 					textAreaProdutos.append(codigo + "\t" + descricao + "\t" + preco + "\n");
+					Thread.sleep(cAtual.getProdutos().size() * 200);
 				}
 
 				textFieldTotalCliente.setText(String.valueOf(cAtual.getTotal()));
 
-				progresso += 100 / trabalho;
-				;
-				if (progresso == 99) {
-					progresso += 1;
-				}
-				progressBar.setValue(Math.round(progresso));
+				progresso += (100 / trabalho) + 1;
+				
+//				while (progresso >= 97) {
+//					progresso += 100 / trabalho;
+//				}
+				
+				progressBar.setValue(progresso);
 				Mercadinho.coletarDinheiroCaixa(cAtual.getTotal());
 				Thread.sleep(3000);
 			}

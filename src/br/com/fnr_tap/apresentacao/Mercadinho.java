@@ -14,20 +14,30 @@ public class Mercadinho {
 
 		CaixaPequenosItens cpi = new CaixaPequenosItens();
 		Thread caixa03 = new Thread(cpi);
+		
+		CaixaPequenosItens cpi2 = new CaixaPequenosItens();
+		Thread caixa04 = new Thread(cpi2);
+//		
+		CaixaPreferencial cp2 = new CaixaPreferencial();
+		Thread caixa05 = new Thread(cp2);
 
 		caixa01.start();
 		caixa02.start();
 		caixa03.start();
+		caixa04.start();
+		caixa05.start();
 
 		try {
 			caixa01.join();
 			caixa02.join();
 			caixa03.join();
+			caixa04.join();
+			caixa05.join();
 		} catch (InterruptedException e) {
 			System.out.println(e.getMessage());
 		}
 
-		JOptionPane.showMessageDialog(null, "Dinheiro Mercadinho: R$" + dinheiroMercadinho);
+		JOptionPane.showMessageDialog(null, "Dinheiro Mercadinho: R$" + Math.round(dinheiroMercadinho * 100) / 100d);
 
 	}
 
