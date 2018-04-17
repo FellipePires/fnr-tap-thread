@@ -1,6 +1,5 @@
 package br.com.fnr_tap.apresentacao;
 
-
 import java.util.Random;
 
 import javax.swing.JFrame;
@@ -28,16 +27,14 @@ public class CaixaPequenosItens extends JFrame implements Runnable {
 
 	public void run() {
 		try {
-
 			int codigoCaixa = new Random().nextInt(2000);
 			Caixa caixa = new Caixa(codigoCaixa);
-			
+
 			trabalho = caixa.getClientes().size();
 			int progresso = 0;
 
 			textFieldCodigoCaixa.setText(String.valueOf(caixa.getCodigo()));
 			textFieldCodigoFuncionario.setText("3");
-
 
 			for (Cliente cAtual : caixa.getClientes()) {
 				textFieldNomeCliente.setText(cAtual.getNome());
@@ -58,12 +55,9 @@ public class CaixaPequenosItens extends JFrame implements Runnable {
 					progresso += 1;
 				}
 				progressBar.setValue(progresso);
-
+				Mercadinho.coletarDinheiroCaixa(cAtual.getTotal());
 				Thread.sleep(3000);
 			}
-			// JOptionPane.showMessageDialog(null, "SALDO RECEBIDO: R$" +
-			// c.getSaldoCaixa());
-
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -85,12 +79,12 @@ public class CaixaPequenosItens extends JFrame implements Runnable {
 		JLabel lblCdFunc = new JLabel("C\u00D3D.FUNC");
 		lblCdFunc.setBounds(10, 36, 70, 21);
 		getContentPane().add(lblCdFunc);
-		
+
 		textFieldCodigoFuncionario = new JTextField();
 		textFieldCodigoFuncionario.setBounds(112, 36, 312, 20);
 		getContentPane().add(textFieldCodigoFuncionario);
 		textFieldCodigoFuncionario.setColumns(10);
-		
+
 		JLabel lblNomeCliente = new JLabel("NOME CLIENTE");
 		lblNomeCliente.setBounds(10, 68, 91, 14);
 		getContentPane().add(lblNomeCliente);
@@ -125,7 +119,7 @@ public class CaixaPequenosItens extends JFrame implements Runnable {
 		textFieldTotalCliente.setBounds(310, 471, 114, 20);
 		getContentPane().add(textFieldTotalCliente);
 		textFieldTotalCliente.setColumns(10);
-		
+
 		setSize(450, 600);
 		setLocationRelativeTo(null);
 		setVisible(true);

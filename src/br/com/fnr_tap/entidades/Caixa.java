@@ -7,9 +7,6 @@ public class Caixa {
 	private int codigo;
 	private ArrayList<Cliente> clientes;
 	private double saldoCaixa;
-//	private boolean isCaixaComum;
-//	private boolean isCaixaPequenosItens;
-//	private boolean isCaixaPreferencial;
 
 	public int getCodigo() {	return codigo;	}
 	public void setCodigo(int codigo) {	this.codigo = codigo;	}
@@ -17,28 +14,19 @@ public class Caixa {
 	public void setClientes(ArrayList<Cliente> clientes) {		this.clientes = clientes;	}
 	public double getSaldoCaixa() {	return saldoCaixa;	}
 	public void setSaldoCaixa(double saldoCaixa) {	this.saldoCaixa = saldoCaixa;	}
-//	public boolean isCaixaComum() {	return isCaixaComum;}
-//	public void setCaixaComum(boolean isCaixaComum) {	this.isCaixaComum = isCaixaComum;	}
-//	public boolean isCaixaPequenosItens() {		return isCaixaPequenosItens;	}
-//	public void setCaixaPequenosItens(boolean isCaixaPequenosItens) {		this.isCaixaPequenosItens = isCaixaPequenosItens;	}
-//	public boolean isCaixaPreferencial() {		return isCaixaPreferencial;	}
-//	public void setCaixaPreferencial(boolean isCaixaPreferencial) {		this.isCaixaPreferencial = isCaixaPreferencial;	}
 	
 	public Caixa() {}
 
-	public Caixa(int codigo) {//boolean isCaixaComum, boolean isCaixaPequenosItens, boolean isCaixaPreferencial
+	public Caixa(int codigo) {
 		this.codigo = codigo;
 		this.clientes = new ArrayList<>();
 		this.saldoCaixa = gerarClientes();
-//		this.isCaixaComum = isCaixaComum;
-//		this.isCaixaPequenosItens = isCaixaPequenosItens;
-//		this.isCaixaPreferencial = isCaixaPreferencial;
 	}
 	
 	public double gerarClientes() {
 		Random random = new Random();		
 
-		for(int i = 0; i < (random.nextInt(5) + 1); i++) {
+		for(int i = 0; i < (random.nextInt(10) + 1); i++) {
 			int codigo = random.nextInt(20);
 			String nome = "Cliente " + (i+1);
 			boolean isPreferencial = random.nextBoolean();
