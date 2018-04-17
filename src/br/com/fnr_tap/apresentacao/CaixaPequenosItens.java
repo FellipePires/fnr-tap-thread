@@ -54,7 +54,8 @@ public class CaixaPequenosItens extends JFrame implements Runnable {
 				if (progresso == 99) {
 					progresso += 1;
 				}
-				progressBar.setValue(progresso);
+
+				progressBar.setValue(Math.round(progresso));
 				Mercadinho.coletarDinheiroCaixa(cAtual.getTotal());
 				Thread.sleep(3000);
 			}

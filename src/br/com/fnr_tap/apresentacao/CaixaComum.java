@@ -31,7 +31,7 @@ public class CaixaComum extends JFrame implements Runnable {
 			Caixa caixa = new Caixa(codigoCaixa);
 
 			trabalho = caixa.getClientes().size();
-			int progresso = 0;
+			float progresso = 0;
 
 			textFieldCodigoCaixa.setText(String.valueOf(caixa.getCodigo()));
 			textFieldCodigoFuncionario.setText("2");
@@ -51,10 +51,11 @@ public class CaixaComum extends JFrame implements Runnable {
 				textFieldTotalCliente.setText(String.valueOf(cAtual.getTotal()));
 
 				progresso += 100 / trabalho;
+				;
 				if (progresso == 99) {
 					progresso += 1;
 				}
-				progressBar.setValue(progresso);
+				progressBar.setValue(Math.round(progresso));
 				Mercadinho.coletarDinheiroCaixa(cAtual.getTotal());
 				Thread.sleep(3000);
 			}
