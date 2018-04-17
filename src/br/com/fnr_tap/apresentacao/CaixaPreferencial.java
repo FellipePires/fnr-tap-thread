@@ -8,7 +8,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import br.com.fnr_tap.entidades.Caixa;
-import br.com.fnr_tap.entidades.Cliente;
 import br.com.fnr_tap.entidades.Produto;
 
 import javax.swing.JTextArea;
@@ -23,7 +22,7 @@ public class CaixaPreferencial extends JFrame implements Runnable {
 	private JTextField textFieldCodigoFuncionario;
 	private JTextArea textAreaProdutos;
 	private JProgressBar progressBar;
-	static int trabalho = 0;
+	int trabalho = 0;
 
 	public void run() {
 		try {
@@ -32,34 +31,33 @@ public class CaixaPreferencial extends JFrame implements Runnable {
 
 			trabalho = caixa.getClientes().size();
 			int progresso = 0;
-			int i = 0;
 
 			textFieldCodigoCaixa.setText(String.valueOf(caixa.getCodigo()));
-			textFieldCodigoFuncionario.setText("1");
+			textFieldCodigoFuncionario.setText(String.valueOf(new Random().nextInt(2000)));
 
-			for (Cliente cAtual : caixa.getClientes()) {
-				textFieldNomeCliente.setText(cAtual.getNome());
+			for (int i = 0; i < caixa.getClientes().size(); i++) {
+				textFieldNomeCliente.setText(caixa.getClientes().get(i).getNome());
 
+				textFieldTotalCliente.setText("");
 				textAreaProdutos.setText("");
-				for (Produto pAtual : cAtual.getProdutos()) {
-					String codigo = String.valueOf(pAtual.getCodigo());
-					String descricao = pAtual.getDescricao();
-					String preco = String.valueOf(pAtual.getPreco());
+				for (Produto pAtual : caixa.getClientes().get(i).getProdutos()) {
+						String codigo = String.valueOf(pAtual.getCodigo());
+						String descricao = pAtual.getDescricao();
+						String preco = String.valueOf(pAtual.getPreco());
 
-					textAreaProdutos.append(codigo + "\t" + descricao + "\t" + preco + "\n");
+						textAreaProdutos.append(codigo + "\t" + descricao + "\t" + preco + "\n");
+						Thread.sleep(1000);
 				}
 
-				textFieldTotalCliente.setText(String.valueOf(cAtual.getTotal()));
+				textFieldTotalCliente.setText(String.valueOf(caixa.getClientes().get(i).getTotal()));
 
 				progresso += (100 / trabalho);
 
 				progressBar.setValue(progresso);
-				Mercadinho.coletarDinheiroCaixa(cAtual.getTotal());
-				
-				Thread.sleep(caixa.getClientes().get(i).getProdutos().size());//Alterar p/ qntd produtos
-				i++;
-			}
+				Mercadinho.coletarDinheiroCaixa(caixa.getSaldoCaixa());
 
+				Thread.sleep(caixa.getClientes().get(i).getProdutos().size() * 100);
+			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -79,20 +77,20 @@ public class CaixaPreferencial extends JFrame implements Runnable {
 		textFieldCodigoCaixa.setColumns(10);
 
 		JLabel lblCdFunc = new JLabel("C\u00D3D.FUNC");
-		lblCdFunc.setBounds(10, 36, 70, 17);
+		lblCdFunc.setBounds(10, 36, 70, 21);
 		getContentPane().add(lblCdFunc);
 
 		textFieldCodigoFuncionario = new JTextField();
-		textFieldCodigoFuncionario.setBounds(112, 34, 312, 20);
+		textFieldCodigoFuncionario.setBounds(112, 36, 312, 20);
 		getContentPane().add(textFieldCodigoFuncionario);
 		textFieldCodigoFuncionario.setColumns(10);
 
 		JLabel lblNomeCliente = new JLabel("NOME CLIENTE");
-		lblNomeCliente.setBounds(10, 64, 91, 14);
+		lblNomeCliente.setBounds(10, 68, 91, 14);
 		getContentPane().add(lblNomeCliente);
 
 		textFieldNomeCliente = new JTextField();
-		textFieldNomeCliente.setBounds(112, 61, 312, 20);
+		textFieldNomeCliente.setBounds(112, 62, 312, 20);
 		getContentPane().add(textFieldNomeCliente);
 		textFieldNomeCliente.setColumns(10);
 

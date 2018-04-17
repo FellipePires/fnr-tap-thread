@@ -39,14 +39,14 @@ public class Cliente {
 		int qntProdutos = 0;
 		
 		if(this.isPequenosItens) {
-			qntProdutos = random.nextInt(250);
+			qntProdutos = random.nextInt(15) + 1;
 		}else if(this.isPreferencial) {
-			qntProdutos = random.nextInt(300);
+			qntProdutos = random.nextInt(50) + 1;
 		}else {
-			qntProdutos = random.nextInt(600);
+			qntProdutos = random.nextInt(50) + 1;
 		}
 		
-		for(int i = 0; i < random.nextInt(3000); i++) {
+		for(int i = 0; i < qntProdutos; i++) {
 			int codigo = random.nextInt(1000);
 			String descricao = "Produto " + (i+1);
 			double preco = random.nextDouble() * 100;

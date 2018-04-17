@@ -26,7 +26,7 @@ public class Caixa {
 	public double gerarClientes() {
 		Random random = new Random();		
 
-		for(int i = 0; i < 20; i++) {
+		for(int i = 0; i < 10; i++) {
 			int codigo = random.nextInt(20);
 			String nome = "Cliente " + (i+1);
 			boolean isPreferencial = random.nextBoolean();

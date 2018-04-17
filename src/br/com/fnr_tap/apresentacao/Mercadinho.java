@@ -9,23 +9,31 @@ public class Mercadinho {
 		CaixaComum cm = new CaixaComum();
 		Thread caixa01 = new Thread(cm);
 
-		CaixaPreferencial cp = new CaixaPreferencial();
-		Thread caixa02 = new Thread(cp);
+		CaixaComum cm2 = new CaixaComum();
+		Thread caixa02 = new Thread(cm2);
 
-		CaixaPequenosItens cpi = new CaixaPequenosItens();
-		Thread caixa03 = new Thread(cpi);
+		CaixaComum cm3 = new CaixaComum();
+		Thread caixa03 = new Thread(cm3);
 		
+		CaixaPequenosItens cpi = new CaixaPequenosItens();
+		Thread caixa04 = new Thread(cpi);
+
 		CaixaPequenosItens cpi2 = new CaixaPequenosItens();
-		Thread caixa04 = new Thread(cpi2);
-//		
+		Thread caixa05 = new Thread(cpi2);
+		
+		CaixaPreferencial cp = new CaixaPreferencial();
+		Thread caixa06 = new Thread(cp);
+
 		CaixaPreferencial cp2 = new CaixaPreferencial();
-		Thread caixa05 = new Thread(cp2);
+		Thread caixa07 = new Thread(cp2);
 
 		caixa01.start();
 		caixa02.start();
 		caixa03.start();
 		caixa04.start();
 		caixa05.start();
+		caixa06.start();
+		caixa07.start();
 
 		try {
 			caixa01.join();
@@ -33,6 +41,8 @@ public class Mercadinho {
 			caixa03.join();
 			caixa04.join();
 			caixa05.join();
+			caixa06.join();
+			caixa07.join();
 		} catch (InterruptedException e) {
 			System.out.println(e.getMessage());
 		}

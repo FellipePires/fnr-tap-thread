@@ -8,7 +8,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import br.com.fnr_tap.entidades.Caixa;
-import br.com.fnr_tap.entidades.Cliente;
 import br.com.fnr_tap.entidades.Produto;
 
 import javax.swing.JTextArea;
@@ -23,7 +22,7 @@ public class CaixaComum extends JFrame implements Runnable {
 	private JTextField textFieldCodigoFuncionario;
 	private JTextArea textAreaProdutos;
 	private JProgressBar progressBar;
-	static int trabalho = 0;
+	int trabalho = 0;
 
 	public void run() {
 		try {
@@ -34,34 +33,28 @@ public class CaixaComum extends JFrame implements Runnable {
 			int progresso = 0;
 
 			textFieldCodigoCaixa.setText(String.valueOf(caixa.getCodigo()));
-			textFieldCodigoFuncionario.setText("2");
-
-			for (Cliente cAtual : caixa.getClientes()) {
-				textFieldNomeCliente.setText(cAtual.getNome());
-
+			textFieldCodigoFuncionario.setText(String.valueOf(new Random().nextInt(2000)));
+			for (int i = 0; i < caixa.getClientes().size(); i++) {
+				textFieldNomeCliente.setText(caixa.getClientes().get(i).getNome());
+				
+				textFieldTotalCliente.setText("");
 				textAreaProdutos.setText("");
-//				Produto pAtual = new Produto();
-				for (int i = cAtual.getProdutos().size(); i > 0 ; i--) {
-					
-					String codigo = String.valueOf(cAtual.getProdutos().get(i).getCodigo());
-					String descricao = cAtual.getProdutos().get(i).getDescricao();
-					String preco = String.valueOf(cAtual.getProdutos().get(i).getPreco());
+				for (Produto pAtual : caixa.getClientes().get(i).getProdutos()) {
+						String codigo = String.valueOf(pAtual.getCodigo());
+						String descricao = pAtual.getDescricao();
+						String preco = String.valueOf(pAtual.getPreco());
 
-					textAreaProdutos.append(codigo + "\t" + descricao + "\t" + preco + "\n");
-					Thread.sleep(cAtual.getProdutos().size() * 200);
+						textAreaProdutos.append(codigo + "\t" + descricao + "\t" + preco + "\n");
+						Thread.sleep(1000);
 				}
 
-				textFieldTotalCliente.setText(String.valueOf(cAtual.getTotal()));
+				textFieldTotalCliente.setText(String.valueOf(caixa.getClientes().get(i).getTotal()));
 
-				progresso += (100 / trabalho) + 1;
-				
-//				while (progresso >= 97) {
-//					progresso += 100 / trabalho;
-//				}
-				
+				progresso += (100 / trabalho);
+				Mercadinho.coletarDinheiroCaixa(caixa.getSaldoCaixa());
 				progressBar.setValue(progresso);
-				Mercadinho.coletarDinheiroCaixa(cAtual.getTotal());
-				Thread.sleep(3000);
+				
+				Thread.sleep(caixa.getClientes().get(i).getProdutos().size() * 200);
 			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();
