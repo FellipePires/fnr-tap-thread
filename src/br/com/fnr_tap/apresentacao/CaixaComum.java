@@ -22,6 +22,7 @@ public class CaixaComum extends JFrame implements Runnable {
 	private JTextField textFieldCodigoFuncionario;
 	private JTextArea textAreaProdutos;
 	private JProgressBar progressBar;
+	Thread thread;
 	int trabalho = 0;
 
 	public void run() {
@@ -30,7 +31,7 @@ public class CaixaComum extends JFrame implements Runnable {
 			Caixa caixa = new Caixa(codigoCaixa);
 
 			trabalho = caixa.getClientes().size();
-			int progresso = 0;
+			int barraProgresso = 0;
 
 			textFieldCodigoCaixa.setText(String.valueOf(caixa.getCodigo()));
 			textFieldCodigoFuncionario.setText(String.valueOf(new Random().nextInt(2000)));
@@ -39,10 +40,10 @@ public class CaixaComum extends JFrame implements Runnable {
 				
 				textFieldTotalCliente.setText("");
 				textAreaProdutos.setText("");
-				for (Produto pAtual : caixa.getClientes().get(i).getProdutos()) {
-						String codigo = String.valueOf(pAtual.getCodigo());
-						String descricao = pAtual.getDescricao();
-						String preco = String.valueOf(pAtual.getPreco());
+				for (Produto produtoAtual : caixa.getClientes().get(i).getProdutos()) {
+						String codigo = String.valueOf(produtoAtual.getCodigo());
+						String descricao = produtoAtual.getDescricao();
+						String preco = String.valueOf(produtoAtual.getPreco());
 
 						textAreaProdutos.append(codigo + "\t" + descricao + "\t" + preco + "\n");
 						Thread.sleep(1000);
@@ -50,9 +51,9 @@ public class CaixaComum extends JFrame implements Runnable {
 
 				textFieldTotalCliente.setText(String.valueOf(caixa.getClientes().get(i).getTotal()));
 
-				progresso += (100 / trabalho);
+				barraProgresso += (100 / trabalho);
 				Mercadinho.coletarDinheiroCaixa(caixa.getSaldoCaixa());
-				progressBar.setValue(progresso);
+				progressBar.setValue(barraProgresso);
 				
 				Thread.sleep(caixa.getClientes().get(i).getProdutos().size() * 200);
 			}
@@ -61,7 +62,7 @@ public class CaixaComum extends JFrame implements Runnable {
 		}
 	}
 
-	public CaixaComum() {
+	public CaixaComum() throws InterruptedException{
 		setTitle("Caixa Comum");
 		getContentPane().setLayout(null);
 
@@ -70,6 +71,7 @@ public class CaixaComum extends JFrame implements Runnable {
 		getContentPane().add(lblCdCaixa);
 
 		textFieldCodigoCaixa = new JTextField();
+		textFieldCodigoCaixa.setEditable(false);
 		textFieldCodigoCaixa.setBounds(112, 8, 312, 20);
 		getContentPane().add(textFieldCodigoCaixa);
 		textFieldCodigoCaixa.setColumns(10);
@@ -79,6 +81,7 @@ public class CaixaComum extends JFrame implements Runnable {
 		getContentPane().add(lblCdFunc);
 
 		textFieldCodigoFuncionario = new JTextField();
+		textFieldCodigoFuncionario.setEditable(false);
 		textFieldCodigoFuncionario.setBounds(112, 36, 312, 20);
 		getContentPane().add(textFieldCodigoFuncionario);
 		textFieldCodigoFuncionario.setColumns(10);
@@ -88,6 +91,7 @@ public class CaixaComum extends JFrame implements Runnable {
 		getContentPane().add(lblNomeCliente);
 
 		textFieldNomeCliente = new JTextField();
+		textFieldNomeCliente.setEditable(false);
 		textFieldNomeCliente.setBounds(112, 62, 312, 20);
 		getContentPane().add(textFieldNomeCliente);
 		textFieldNomeCliente.setColumns(10);
@@ -102,6 +106,7 @@ public class CaixaComum extends JFrame implements Runnable {
 		getContentPane().add(scrollPane);
 
 		textAreaProdutos = new JTextArea();
+		textAreaProdutos.setEditable(false);
 		scrollPane.setViewportView(textAreaProdutos);
 
 		progressBar = new JProgressBar();
@@ -114,6 +119,7 @@ public class CaixaComum extends JFrame implements Runnable {
 		getContentPane().add(lblTotal);
 
 		textFieldTotalCliente = new JTextField();
+		textFieldTotalCliente.setEditable(false);
 		textFieldTotalCliente.setBounds(310, 471, 114, 20);
 		getContentPane().add(textFieldTotalCliente);
 		textFieldTotalCliente.setColumns(10);
@@ -123,5 +129,8 @@ public class CaixaComum extends JFrame implements Runnable {
 		setVisible(true);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		this.thread = new Thread(this);
+		this.thread.start();
 	}
 }
